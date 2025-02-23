@@ -60,6 +60,8 @@ BOT_USERNAME=@YourBotUsername
 EMOJI_LIST=👍,❤️,🔥,🎉,😍
 RANDOM_LEVEL=5
 RESTRICTED_CHATS=-10012345,678901234
+
+## **💻**
 MIT License
 Copyright (c) 2023 Malith Rukshan
 
