@@ -1,6 +1,7 @@
 /*!
  * © [2024] Malith-Rukshan. All rights reserved.
  * Repository: https://github.com/Malith-Rukshan/Auto-Reaction-Bot
+ * Optimized Version: 1.1.0
  */
 
 import express from 'express';
@@ -10,27 +11,32 @@ import TelegramBotAPI from './TelegramBotAPI.js';
 import { htmlContent, startMessage, donateMessage } from './constants.js';
 import { splitEmojis, getRandomPositiveReaction, getChatIds } from './helper.js';
 
-dotenv.config();
+// Configuration & Validation
+dotenv.config({ path: '.env' });
+validateEnvironment();
 
 const app = express();
 app.use(bodyParser.json());
 
-const botToken = process.env.BOT_TOKEN;
-const botUsername = process.env.BOT_USERNAME;
-const Reactions = splitEmojis(process.env.EMOJI_LIST);
-const RestrictedChats = getChatIds(process.env.RESTRICTED_CHATS);
-const RandomLevel = parseInt(process.env.RANDOM_LEVEL || '0', 10);
+// Precompute constants
+const BOT_CONFIG = {
+    token: process.env.BOT_TOKEN,
+    username: process.env.BOT_USERNAME,
+    reactions: splitEmojis(process.env.EMOJI_LIST || ''),
+    restrictedChats: getChatIds(process.env.RESTRICTED_CHATS || ''),
+    randomLevel: Math.min(Math.max(parseInt(process.env.RANDOM_LEVEL || '0', 10), 0), 10)
+};
 
-const botApi = new TelegramBotAPI(botToken);
+const botApi = new TelegramBotAPI(BOT_CONFIG.token);
 
+// Routes
 app.post('/', async (req, res) => {
-    const data = req.body;
     try {
-        await onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, RandomLevel);
+        await handleUpdate(req.body);
         res.status(200).send('Ok');
     } catch (error) {
-        console.info('Error in onUpdate:', error);
-        res.status(200).send('Ok');
+        console.error(`Error processing update: ${error.message}`);
+        res.status(200).send('Ok'); // Always respond OK to prevent retries
     }
 });
 
@@ -38,65 +44,126 @@ app.get('/', (req, res) => {
     res.send(htmlContent);
 });
 
-async function onUpdate(data, botApi, Reactions, RestrictedChats, botUsername, RandomLevel) {
-    let chatId, message_id, text;
+// Update Handler
+async function handleUpdate(data) {
+    if (data.pre_checkout_query) {
+        return handlePaymentQuery(data.pre_checkout_query);
+    }
 
-    if (data.message || data.channel_post) {
-        const content = data.message || data.channel_post;
-        chatId = content.chat.id;
-        message_id = content.message_id;
-        text = content.text;
+    const content = data.message || data.channel_post;
+    if (!content) return;
 
-        if (data.message && (text === '/start' || text === '/start@' + botUsername)) {
-            await botApi.sendMessage(chatId, startMessage.replace('UserName', content.chat.type === "private" ? content.from.first_name : content.chat.title), [
-                [
-                    { "text": "➕ Add to Channel ➕", "url": `https://t.me/${botUsername}?startchannel=botstart` },
-                    { "text": "➕ Add to Group ➕", "url": `https://t.me/${botUsername}?startgroup=botstart` },
-                ],
-                [
-                    { "text": "Github Source 📥", "url": "https://github.com/Malith-Rukshan/Auto-Reaction-Bot" },
-                ],
-                [
-                    { "text": "💝 Support Us - Donate 🤝", "url": "https://t.me/Auto_ReactionBOT?start=donate" }
-                ]
-            ]);
-        } else if (data.message && text === '/reactions') {
-            const reactions = Reactions.join(", ");
-            await botApi.sendMessage(chatId, "✅ Enabled Reactions : \n\n" + reactions);
-        } else if (data.message && text === '/donate' || text === '/start donate') {
-            await botApi.sendInvoice(
-                chatId,
-                "Donate to Auto Reaction Bot ✨",
-                donateMessage,
-                '{}',
-                '',
-                'donate',
-                'XTR',
-                [{ label: 'Pay ⭐️1', amount: 1 }],
-            )
-        } else {
-            // Calculate the threshold: higher RandomLevel, lower threshold
-            let threshold = 1 - (RandomLevel / 10);
-            if (!RestrictedChats.includes(chatId)) {
-                // Check if chat is a group or supergroup to determine if reactions should be random
-                if (["group", "supergroup"].includes(content.chat.type)) {
-                    // Run Function Randomly - Accroding to the RANDOM_LEVEL
-                    if (Math.random() <= threshold) {
-                        await botApi.setMessageReaction(chatId, message_id, getRandomPositiveReaction(Reactions));
-                    }
-                } else {
-                    // For non-group chats, set the reaction directly
-                    await botApi.setMessageReaction(chatId, message_id, getRandomPositiveReaction(Reactions));
-                }
-            }
-        }
-    } else if (data.pre_checkout_query){
-        await botApi.answerPreCheckoutQuery(data.pre_checkout_query.id, true);
-        await botApi.sendMessage(data.pre_checkout_query.from.id, "Thank you for your donation! 💝");
+    const { chat, message_id, text } = content;
+    const isCommand = text?.startsWith('/');
+
+    if (isCommand) {
+        await handleCommand(content);
+        return;
+    }
+
+    if (!BOT_CONFIG.restrictedChats.includes(chat.id)) {
+        await processReaction(content);
     }
 }
 
+// Command Handlers
+async function handleCommand(content) {
+    const { chat, text } = content;
+    const command = text.split(' ')[0].toLowerCase();
+
+    switch (command) {
+        case '/start':
+            await handleStartCommand(content);
+            break;
+        case '/reactions':
+            await sendReactionList(chat.id);
+            break;
+        case '/donate':
+            await sendDonationInvoice(chat.id);
+            break;
+    }
+}
+
+async function handleStartCommand(content) {
+    const { chat, from } = content;
+    const isPrivate = chat.type === "private";
+    const userName = isPrivate ? from.first_name : chat.title;
+
+    await botApi.sendMessage(chat.id, startMessage.replace('UserName', userName), [
+        [
+            { text: "➕ Add to Channel ➕", url: `https://t.me/${BOT_CONFIG.username}?startchannel=botstart` },
+            { text: "➕ Add to Group ➕", url: `https://t.me/${BOT_CONFIG.username}?startgroup=botstart` },
+        ],
+        [
+            { text: "Github Source 📥", url: "https://github.com/Malith-Rukshan/Auto-Reaction-Bot" },
+        ],
+        [
+            { text: "💝 Support Us - Donate 🤝", url: `https://t.me/${BOT_CONFIG.username}?start=donate` }
+        ]
+    ]);
+}
+
+// Reaction Logic
+async function processReaction(content) {
+    const { chat, message_id } = content;
+    const threshold = 1 - (BOT_CONFIG.randomLevel / 10);
+
+    if (["group", "supergroup"].includes(chat.type)) {
+        if (Math.random() <= threshold) {
+            await sendReaction(chat.id, message_id);
+        }
+    } else {
+        await sendReaction(chat.id, message_id);
+    }
+}
+
+async function sendReaction(chatId, messageId) {
+    const reaction = getRandomPositiveReaction(BOT_CONFIG.reactions);
+    await botApi.setMessageReaction(chatId, messageId, reaction);
+}
+
+// Payment Handlers
+async function handlePaymentQuery(query) {
+    await botApi.answerPreCheckoutQuery(query.id, true);
+    await botApi.sendMessage(query.from.id, "Thank you for your donation! 💝");
+}
+
+async function sendDonationInvoice(chatId) {
+    await botApi.sendInvoice(
+        chatId,
+        "Donate to Auto Reaction Bot ✨",
+        donateMessage,
+        'PAYLOAD_' + Date.now(),
+        process.env.PAYMENT_PROVIDER_TOKEN,
+        'donate',
+        'USD',
+        [{ label: 'Support Tier 1', amount: 100 }] // $1.00
+    );
+}
+
+// Helper Functions
+async function sendReactionList(chatId) {
+    const reactionText = BOT_CONFIG.reactions.length > 0 
+        ? "✅ Enabled Reactions:\n\n" + BOT_CONFIG.reactions.join(", ")
+        : "⚠️ No reactions configured!";
+    await botApi.sendMessage(chatId, reactionText);
+}
+
+function validateEnvironment() {
+    const requiredVars = ['BOT_TOKEN', 'BOT_USERNAME'];
+    requiredVars.forEach(varName => {
+        if (!process.env[varName]) {
+            throw new Error(`Missing required environment variable: ${varName}`);
+        }
+    });
+}
+
+// Server Initialization
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`⚡️ Server running on port ${PORT}`);
+    console.log(`🤖 Bot Configuration:`);
+    console.log(`- Username: @${BOT_CONFIG.username}`);
+    console.log(`- Reactions: ${BOT_CONFIG.reactions.length} emojis loaded`);
+    console.log(`- Random Level: ${BOT_CONFIG.randomLevel}/10`);
 });
