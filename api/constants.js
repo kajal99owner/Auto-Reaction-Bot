@@ -1,61 +1,126 @@
-export const startMessage = `👋 Hello there, UserName !
+export const startMessage = `☣️ *W E L C O M E   T O   T H E   R E A C T I O N   R E V O L U T I O N* ☣️
 
-Welcome to the *Auto Emoji Reaction Bot 🎉*, ready to sprinkle your conversations with a little extra happiness!
+🔥 *Hey UserName!* Ready to weaponize your chats with emoji artillery? 💥
 
-💁‍♂️ Here's how I spice up your chats:
+⚡ *COMBAT MODES* ⚡
+〰〰〰〰〰〰〰〰
+🔹 *DM ASSAULT*: Send any message to me and get hit with random emoji shrapnel! 
+🔹 *GROUP SIEGE*: Add me to groups/channels and watch me rain emoji grenades on every message!
 
-*✨ DM Magic*: Message me and receive a surprise emoji in return. Expect the unexpected and enjoy the fun!
-*🏖 Group & Channel*: Add me to your groups or channels, and I'll keep the vibe positive by reacting to messages with engaging emojis.
+🛠 *ARMORY*: Type /reactions to see my full emoji arsenal
+💻 *DEPLOY YOUR OWN*: [GitHub Repo](https://github.com/Malith-Rukshan/Auto-Reaction-Bot) | No server needed!
 
-✍️ To view the emojis I can use, simply type /reactions. To create your own auto reaction bot, head over to: [Auto-Reaction-Bot on GitHub](https://github.com/Malith-Rukshan/Auto-Reaction-Bot).
+☠️ *WARNING:* Excessive awesomeness may occur. Use with caution!
 
-Let's elevate our conversations with more energy and color! 🚀
+💸 Keep the servers smoking: /donate`
 
-💖 Keep us running! Support the bot: /donate`
+export const donateMessage = `💉 *FUEL THE MACHINE* 💉
+Help us maintain our emoji warfare capabilities! Every contribution powers:
 
-export const donateMessage = `🙏 Support Auto Reaction Bot ✨ and help us stay online and continue to improve! ✨ Your donations keep our services live and enable us to bring you new features and enhancements. Every star makes a difference! Thank you! 🌟🚀`
+☑️ 24/7 server uptime
+☑️ New lethal emoji weapons
+☑️ Global domination plans
+
+⚰️ Don't let the bot die - your support keeps the reaction apocalypse alive!`
 
 export const htmlContent = `
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Telegram Auto Reaction Bot</title>
-<meta name="description" content="Single Developers presents an open-source Telegram Auto Reaction bot developed by Malith-Rukshan. Reacts to all messages received from chats automatically. Serverless deployment on Cloudflare.">
-<meta name="keywords" content="Telegram bot, auto reaction bot, open-source, Single Developers, Malith-Rukshan, Telegram auto reaction, serverless telegram bot, reaction automation">
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<style>
-  body, html {
-    height: 100%; margin: 0; display: flex; justify-content: center; align-items: center; flex-direction: column; font-family: Arial, sans-serif;
-  }
-  .logo {
-    width: 60%; margin-bottom: 20px;
-  }
-  .title { margin-bottom: 20px; font-size: 34px; font-weight: bold; color: #333; text-align: center; }
-  .button {
-    padding: 10px 20px; margin: 10px; font-size: 16px; cursor: pointer; text-align: center; color: #fff; border: none; border-radius: 15px;
-    transition: background-color 0.3s ease; display: inline-block; outline: none;
-  }
-  .githubBtn { background-color: #0881FD; }
-  .githubBtn:hover { background-color: #0672E0; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>☣️ EMOJI WARFARE BOT</title>
+    <meta name="description" content="Deploy emoji annihilation across Telegram chats. Open-source destruction engine by Malith-Rukshan.">
+    <style>
+        :root {
+            --neon: #00ff9d;
+            --blood: #ff4655;
+        }
+        body {
+            background: radial-gradient(circle, #0a0a0a 0%, #000 100%);
+            color: #fff;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+        .glitch-title {
+            font-size: 2.5rem;
+            text-shadow: 3px 3px 0 var(--blood),
+                         -1px -1px 0 var(--neon);
+            animation: glitch 2s infinite;
+            margin: 2rem 0;
+        }
+        .cyber-border {
+            border: 3px solid var(--neon);
+            padding: 2rem;
+            margin: 2rem;
+            position: relative;
+            box-shadow: 0 0 15px var(--neon);
+        }
+        .cyber-button {
+            background: #000;
+            color: var(--neon);
+            padding: 1rem 2rem;
+            border: 2px solid var(--neon);
+            margin: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .cyber-button:hover {
+            background: var(--neon);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon);
+        }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+    </style>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
 </head>
 <body>
+    <div class="cyber-border">
+        <h1 class="glitch-title">☣️ EMOJI WARFARE BOT ☣️</h1>
+        <img src="https://telegra.ph/file/cb59967120c6bda64580b.jpg" 
+             style="width:300px; border: 2px solid var(--blood); margin: 1rem;">
+        
+        <button class="cyber-button" 
+                onclick="window.open('https://github.com/Malith-Rukshan/Auto-Reaction-Bot','_blank')">
+            DEPLOY YOUR OWN
+        </button>
 
-<div class="title">Telegram Auto Reaction Bot 🎉</div>
-<img class="logo" src="https://telegra.ph/file/cb59967120c6bda64580b.jpg">
-
-<button class="button githubBtn" onclick="window.location='https://github.com/Malith-Rukshan/Auto-Reaction-Bot'">Open Source 🌱</button>
-
-<div style="margin: 5px;">
-  <a class="github-button" href="https://github.com/Malith-Rukshan/Auto-Reaction-Bot" data-size="large" data-show-count="true">Star</a>
-  <a class="github-button" href="https://github.com/Malith-Rukshan/Auto-Reaction-Bot/fork" data-size="large" data-show-count="true">Fork</a>
-</div>
-<div>
-  <a class="github-button" href="https://github.com/Malith-Rukshan" data-size="large">Follow @Malith-Rukshan</a>
-</div>
+        <div style="margin: 2rem;">
+            <a class="github-button" 
+               href="https://github.com/Malith-Rukshan/Auto-Reaction-Bot" 
+               data-color-scheme="dark" 
+               data-size="large" 
+               data-show-count="true" 
+               aria-label="Star Malith-Rukshan/Auto-Reaction-Bot on GitHub">Star</a>
+            
+            <a class="github-button" 
+               href="https://github.com/Malith-Rukshan/Auto-Reaction-Bot/fork" 
+               data-color-scheme="dark" 
+               data-size="large" 
+               data-show-count="true" 
+               aria-label="Fork Malith-Rukshan/Auto-Reaction-Bot on GitHub">Fork</a>
+        </div>
+        
+        <div style="border-top: 1px solid var(--blood); padding: 1rem; margin-top: 2rem;">
+            <p style="color: var(--neon);">☠️ WARNING: May cause uncontrollable chat engagement</p>
+        </div>
+    </div>
 </body>
 </html>
 `;
-
