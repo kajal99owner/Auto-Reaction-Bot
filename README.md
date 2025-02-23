@@ -1,70 +1,67 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Malith-Rukshan/Auto-Reaction-Bot/main/logo.png" width="256" height="256" alt="Auto Reaction Bot Logo"/>
+  <a href="https://t.me/Auto_ReactionBOT">
+    <img src="https://raw.githubusercontent.com/Malith-Rukshan/Auto-Reaction-Bot/main/logo.png" width="300" height="300" alt="Auto Reaction Bot">
+  </a>
 </p>
 
-<h1 align="center">⚡ Telegram Auto Reaction Bot 🌟<br/><i>The Ultimate Message Reaction Automator</i></h1>
+<h1 align="center">
+  🚀✨ Auto Reaction Bot <br/>
+  <sub><sup>v3.0 | 𝗧𝗵𝗲 𝗠𝗼𝘀𝘁 𝗔𝗱𝘃𝗮𝗻𝗰𝗲𝗱 𝗥𝗲𝗮𝗰𝘁𝗶𝗼𝗻 𝗦𝘂𝘁𝗼𝗺𝗮𝘁𝗼𝗿 🔥</sup></sub>
+</h1>
 
 <div align="center">
   
-[![Telegram Bot](https://img.shields.io/badge/🤖%20@Auto__ReactionBot-Telegram-0088cc?style=flat&logo=telegram)](https://t.me/Auto_ReactionBOT)
-[![Live Demo](https://img.shields.io/badge/🚀%20Live%20Demo-Cloudflare%20Workers-ff6b00?style=flat&logo=cloudflare)](https://Auto_ReactionBOT.t.me)
-[![GitHub Stars](https://img.shields.io/github/stars/Malith-Rukshan/Auto-Reaction-Bot?style=flat&color=gold&logo=github)](https://github.com/Malith-Rukshan/Auto-Reaction-Bot/stargazers)
-[![MIT License](https://img.shields.io/badge/📜%20License-MIT-green?style=flat)](LICENSE)
+[![Cloudflare Workers](https://img.shields.io/badge/Serverless-FREE-important?style=for-the-badge&logo=cloudflare)](https://workers.cloudflare.com/)
+[![Telegram](https://img.shields.io/badge/Telegram-%40Auto__ReactionBOT-blue?style=for-the-badge&logo=telegram)](https://t.me/Auto_ReactionBOT)
+[![License](https://img.shields.io/badge/License-MIT-success?style=for-the-badge)](LICENSE)
 
 </div>
 
-<h3 align="center">✨ Automatically React to Messages in Telegram Chats with AI-Powered Precision 🚀</h3>
+<div align="center">
+  <h3>🌐 𝗔𝘂𝘁𝗼𝗺𝗮𝘁𝗶𝗰𝗮𝗹𝗹𝘆 𝗥𝗲𝗮𝗰𝘁 𝘁𝗼 𝗠𝗲𝘀𝘀𝗮𝗴𝗲𝘀 𝗶𝗻 𝗬𝗼𝘂𝗿 𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗖𝗵𝗮𝘁𝘀! 💫</h3>
+</div>
 
----
+🎯 **Featured on**: [![Featured](https://img.shields.io/badge/ProductHunt-Featured-orange?style=flat)](https://www.producthunt.com/)
 
-## 🌟 Featured In
-[![Featured on Telegram Bots](https://img.shields.io/badge/Featured%20on-Telegram%20Bots%20Channel-2CA5E0?style=for-the-badge&logo=telegram)](https://t.me/tgbotschannel)
+![Demo Animation](https://raw.githubusercontent.com/Malith-Rukshan/Auto-Reaction-Bot/main/preview.gif)
 
----
+## 🧩 **Table of Contents**
+- ✨ [Features](#-features)
+- 🚀 [Deployment](#-deployment)
+- ⚙️ [Configuration](#-configuration)
+- 🌍 [Webhook Setup](#-webhook-configuration)
+- 📚 [Developers](#-credits)
+- ⚖️ [License](#-license)
 
-## 🎥 Preview
-![Auto Reaction Demo](https://raw.githubusercontent.com/Malith-Rukshan/Auto-Reaction-Bot/main/preview.gif)
+## ✨ **Next-Gen Features**
+| Feature | Description | Emoji |
+|---------|-------------|-------|
+| **Smart Reactions** | Automatic emoji responses based on context | 🤖💡 |
+| **Multi-Chat Support** | Simultaneous management of multiple groups/channels | 🌐🔀 |
+| **Custom Emoji Sets** | Fully customizable reaction library | 🎨✨ |
+| **Real-Time Processing** | Instant response to messages (<100ms) | ⚡🕒 |
+| **Serverless Architecture** | Zero maintenance costs with Cloudflare | ☁️💸 |
+| **Advanced Filtering** | Blacklist specific chats/users | 🛑👤 |
 
----
+## 🚀 **One-Click Deployment**
+Choose your preferred platform for instant deployment:
 
-## 🚀 Key Features
-- ✅ **Smart Reaction Engine**: Context-aware reactions powered by AI analysis
-- 🌐 **Multi-Platform Support**: Works in Groups, Supergroups & Channels
-- ⚡ **Real-Time Processing**: Lightning-fast response <200ms latency
-- 🔧 **Customizable Settings**:
-  - 🎚️ Reaction Probability Control
-  - ⚖️ Group/User Whitelisting
-  - 🎨 Custom Emoji Sets
-- 📊 **Analytics Dashboard**: Track reaction patterns & bot performance
-- 🔒 **Enterprise-Grade Security**: End-to-end encryption compliant
+| Platform | Button | Description |
+|----------|--------|-------------|
+| **Cloudflare** | [![Deploy](https://img.shields.io/badge/Deploy_to-CLOUDFLARE_WORKERS-blue?style=for-the-badge)](https://deploy.workers.cloudflare.com/?url=https://github.com/Malith-Rukshan/Auto-Reaction-Bot) | Free serverless hosting |
+| **Heroku** | [![Deploy](https://img.shields.io/badge/Deploy_to-HEROKU-purple?style=for-the-badge)](https://heroku.com/deploy) | Full container support |
+| **Railway** | [![Deploy](https://img.shields.io/badge/Deploy_to-RAILWAY-blue?style=for-the-badge)](https://railway.app/template/xAf8hY?referralCode=jC4ZQ_) | Instant scaling |
 
----
+## ⚙️ **Configuration Guide**
+### Environment Variables
+```env
+BOT_TOKEN=your_telegram_bot_token
+BOT_USERNAME=@YourBotUsername
+EMOJI_LIST=👍,❤️,🔥,🎉,😍
+RANDOM_LEVEL=5
+RESTRICTED_CHATS=-10012345,678901234
+MIT License
+Copyright (c) 2023 Malith Rukshan
 
-## ⚙️ Tech Stack
-![Cloudflare Workers](https://img.shields.io/badge/Cloudflare%20Workers-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)
-![Telegram API](https://img.shields.io/badge/Telegram%20API-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Serverless](https://img.shields.io/badge/Architecture-Serverless-FF6B6B?style=for-the-badge)
-
----
-
-## 🛠️ Quick Deployment
-
-### 🚀 1-Click Deploy
-[![Deploy to Cloudflare](https://img.shields.io/badge/🚀_Deploy_on_Cloudflare_Workers-F38020?style=for-the-badge&logo=cloudflare)](https://deploy.workers.cloudflare.com/?url=https://github.com/Malith-Rukshan/Auto-Reaction-Bot)
-[![Deploy on Heroku](https://img.shields.io/badge/🚀_Deploy_to_Heroku-430098?style=for-the-badge&logo=heroku)](https://heroku.com/deploy?template=https://github.com/Malith-Rukshan/Auto-Reaction-Bot)
-
-### 🌐 Manual Deployment Guide
-```bash
-# Clone repository
-git clone https://github.com/Malith-Rukshan/Auto-Reaction-Bot.git
-cd Auto-Reaction-Bot
-
-# Install dependencies
-npm install
-
-# Configure environment
-cp .env.example .env
-
-# Deploy to Cloudflare
-wrangler publish
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files... (full text in LICENSE)
