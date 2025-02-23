@@ -81,6 +81,9 @@ async function handleCommand(content) {
         case '/donate':
             await sendDonationInvoice(chat.id);
             break;
+        case '/id': 
+            await sendUserDetails(content);
+            break;
     }
 }
 
@@ -158,6 +161,30 @@ function validateEnvironment() {
     });
 }
 
+// id info 
+async function sendUserDetails(content) {
+    const { chat, from, message_id } = content;
+    const user = content.message ? content.message.from : content.channel_post.sender_chat;
+    
+    const userDetails = `
+👁️‍🗨️ ʏᴏᴜʀ ᴅᴇᴛᴀɪʟs
+
+○ ɪᴅ : <code>${user.id}</code>
+○ ᴅᴄ : <code>${user.dc_id || 'N/A'}</code>
+○ ғɪʀsᴛ ɴᴀᴍᴇ : ${user.first_name || '~'}
+○ ᴜsᴇʀ ɴᴀᴍᴇ : ${user.username ? '@' + user.username : '~'}
+○ ʟɪɴᴋ : ${user.username ? `https://t.me/${user.username}` : 'Not available'}
+    `.trim();
+
+    await botApi.sendMessage(
+        chat.id,
+        userDetails,
+        { 
+            parse_mode: 'HTML',
+            reply_to_message_id: message_id 
+        }
+    );
+}
 // Server Initialization
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
